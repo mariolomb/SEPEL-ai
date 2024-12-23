@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="it.sepel.acl2sb.mapper.AclMapper">
+    
+    <resultMap id="BaseResultMap" type="it.sepel.acl2sb.domain.LoginResult">
+        <result column="id_abbonati" jdbcType="INTEGER" property="idAbbonato" />
+        <result column="codice" jdbcType="VARCHAR" property="codice" />
+        <result column="abilitato" jdbcType="VARCHAR" property="abilitato" />
+        <result column="ultimo_accesso" jdbcType="DATE" property="dataUltimoAccesso" />
+        <result column="data_scadenza_password" jdbcType="DATE" property="dataScadenzaPassword" />
+        <result column="ultimo_ip" jdbcType="VARCHAR" property="ultimoIp" />
+        <result column="numero_ip_abilitati" jdbcType="INTEGER" property="numeroIpAbilitati" />
+        <collection property="ruoli" javaType="java.util.ArrayList" column="id_abbonati" select="loadRolesList" />
+    </resultMap>
+    
+    <select resultType="String" id="loadPermissionList">
+        SELECT
+            action
+        FROM
+            sys_permission_list
+        WHERE
+            fk_id_role = #{ruolo}
+    </select>
+    
+    <select resultType="String" id="loadRolesList">
+        SELECT
+            ruolo
+        FROM
+            ga2.abbonati_ruoli
+        WHERE
+            fk_id_abbonati = #{id_abbonati}
+    </select>
+    
+    <select resultMap="BaseResultMap" id="loadLoginResult">
+        SELECT
+            a.id_abbonati,
+            a.codice,
+            a.abilitato,
+            a.ultimo_accesso,
+            a.data_scadenza_password,
+            a.ultimo_ip AS ultimoIp,
+            a.numero_ip_abilitati
+        FROM
+            ga2.abbonati a
+        WHERE
+            TRIM(a.username) = #{username} AND
+            TRIM(a.password) = #{password}
+    </select>
+                
+    <update id="updateLastLogin">
+        UPDATE
+            ga2.abbonati a
+        SET
+            a.ultimo_accesso = #{dataUltimoAccesso},
+            a.ultimo_ip = #{ultimoIp}
+        WHERE
+            a.id_abbonati = #{idAbbonato}
+    </update>
+    
+    <select resultMap="BaseResultMap" id="loadDefaultLoginResult">
+        SELECT
+            id_user as id_abbonati,
+            username as codice
+        FROM
+            sys_user
+        WHERE
+            TRIM(username) = #{username} AND
+            TRIM(password) = #{password}
+    </select>
+    
+</mapper>

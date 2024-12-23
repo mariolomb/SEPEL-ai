@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="it.sepel.ai.mapper.ApplicationMapper">
+    
+    <select id="loadConfigProperty" resultType="String">
+        select value from `SEPEL-ai`.sys_config where name = #{name}
+    </select>
+    
+    <select id="getUniqueId" resultType="Integer">
+         CALL `SEPEL-ai`.`getUniqueId`()
+    </select>
+    
+    <insert id="insertContenuto" parameterType="Map">
+        insert into contenuti (
+                id,
+                id_contenuto,
+                tipo_contenuto,
+                materia,
+                data,
+                embedding,
+                data_indicizzazione,
+                esito_indicizzazione
+            ) values (
+                #{contenuto.id},
+                #{contenuto.idContenuto},
+                #{contenuto.tipoContenuto},
+                #{contenuto.materia},
+                #{contenuto.data},
+                #{embeddingString},
+                NOW(),
+                #{esito})
+    </insert>
+    
+    <update id="updateContenuto" parameterType="Map">
+        update contenuti set
+                embedding = #{embeddingString},
+                data_indicizzazione = NOW(),
+                esito_indicizzazione = #{esito}
+        where
+            id = #{contenuto.id}
+    </update>
+    
+    <select id="searchContenuti" resultType="it.sepel.ai.domain.Contenuto">
+        select
+            id,
+            id_contenuto as idContenuto,
+            tipo_contenuto as tipoContenuto,
+            materia,
+            data,
+            embedding
+        from
+            contenuti c
+        <where>
+            <if test="id != null and id != ''">
+                and c.id = #{id} 
+            </if>
+            <if test="tipoContenuto != null and tipoContenuto != ''">
+                and c.tipo_contenuto = #{tipoContenuto} 
+            </if>
+            <if test="idContenuto != null">
+                and c.id_contenuto = #{idContenuto} 
+            </if>
+            <if test="embeddingIsEmpty == 'SI'">
+                and c.embedding = ''
+            </if>
+            <if test="errori == 'SI'">
+                and esito_indicizzazione != 'OK'
+            </if>
+            order by data_indicizzazione
+        </where>
+    </select>
+    
+</mapper>

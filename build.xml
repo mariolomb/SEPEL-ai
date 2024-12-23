@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="cpyprt">
+<target name="loadProperty">
+    <tstamp>
+        <format property="current.date" pattern="dd/MM/yyyy HH:mm:ss" />
+    </tstamp>
+    <property file="git.properties" />
+    <echo file="src/main/resources/templates/version.ftlh" append="false">Build ${git.commit.id.abbrev} - ${current.date}</echo>
+    </target>
+</project>
+
+
