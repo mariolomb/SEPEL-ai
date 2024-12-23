@@ -1,1 +1,1 @@
-Build 15cc1d2 - 28/11/2024 10:38:08
+Build ${git.commit.id.abbrev} - 23/12/2024 18:18:52

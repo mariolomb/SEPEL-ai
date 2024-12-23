@@ -326,7 +326,7 @@
                     <generateGitPropertiesFilename>${project.basedir}/git.properties</generateGitPropertiesFilename>
                 </configuration>
             </plugin>
-            
+            -->
            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -346,9 +346,8 @@
                     </execution>
                 </executions>
             </plugin>
-            -->
             
-            <!--copia esplicitamente il file version altrimenti non si aggiorna-->
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
