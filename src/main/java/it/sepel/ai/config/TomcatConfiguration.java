@@ -15,7 +15,7 @@ public class TomcatConfiguration {
     @Profile("prod")
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainerCustomizer() {
         return factory -> {
-            factory.setPort(8016); // Imposta la porta del server Tomcat su 8004
+            factory.setPort(8017); // Imposta la porta del server Tomcat su 8004
             factory.setProtocol("AJP/1.3"); // Imposta il protocollo AJP
             factory.addConnectorCustomizers(connector -> {
                 AjpNioProtocol protocol = (AjpNioProtocol) connector.getProtocolHandler();

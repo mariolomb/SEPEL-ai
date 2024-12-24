@@ -308,7 +308,6 @@
                 </executions>
             </plugin>
             
-            <!--
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -326,7 +325,6 @@
                     <generateGitPropertiesFilename>${project.basedir}/git.properties</generateGitPropertiesFilename>
                 </configuration>
             </plugin>
-            -->
            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -15,12 +15,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class OpenAIManager {
 
-    private final static String API_KEY = "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";
+    
+    //il parametro API_KEY è impostato in una variabile di ambiente
+    //altrimenti se va su github viene revocata per sicurezza
+    //per impostare la variabile scriverla nel file .bashrc
+    //export OPENAI_API_KEY=
+    //private final static String API_KEY = "";
     private static final Logger log = LoggerFactory.getLogger(OpenAIManager.class);
     
     private final OpenAiService openAiService;
 
     public OpenAIManager() {
+        String API_KEY = System.getenv("OPENAI_API_KEY");
         this.openAiService = new OpenAiService(API_KEY,Duration.ofSeconds(120));
     }
 
