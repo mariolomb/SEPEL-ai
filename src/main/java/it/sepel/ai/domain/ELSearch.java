@@ -6,7 +6,16 @@ public class ELSearch {
     
     private String searchTerm;
     private List<Double> searchTermEmbedding;
+    private List<String> requestedMatters;
 
+    public List<String> getRequestedMatters() {
+        return requestedMatters;
+    }
+
+    public void setRequestedMatters(List<String> requestedMatters) {
+        this.requestedMatters = requestedMatters;
+    }
+    
     public List<Double> getSearchTermEmbedding() {
         return searchTermEmbedding;
     }

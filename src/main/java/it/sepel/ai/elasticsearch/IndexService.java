@@ -30,7 +30,9 @@ public class IndexService {
       "tipoContenuto": { "type": "keyword" },
       "materia": { "type": "keyword" },
       "data": { "type": "date" },
-      "embedding": { "type": "dense_vector", "dims": 1536 }
+      "embedding": { "type": "dense_vector", "dims": 1536 },
+      "titolo": { "type": "text" },
+      "autore": { "type": "keyword" }
     }
   }
 }'

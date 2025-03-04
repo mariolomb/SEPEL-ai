@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class TutorChatMessage implements Serializable {
     private String id;
@@ -13,18 +12,27 @@ public class TutorChatMessage implements Serializable {
     private Date date;
     private List<Contenuto> attachments;
 
-    public TutorChatMessage() {
-       this.id = UUID.randomUUID().toString();
-       this.date = new Date();
-       this.attachments = new ArrayList<>();
-    }
-    
     public TutorChatMessage(String role, String text) {
-       this.id = UUID.randomUUID().toString();
        this.date = new Date();
        this.role = role;
        this.text = text;
        this.attachments = new ArrayList<>();
+    }
+    
+    public TutorChatMessage(String role, AIResponse r) {
+       this.id = r.getId();
+       this.date = new Date();
+       this.role = role;
+       this.text = r.getResponse();
+       this.attachments = new ArrayList<>();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public List<Contenuto> getAttachments() {
@@ -43,20 +51,12 @@ public class TutorChatMessage implements Serializable {
         this.date = date;
     }
     
-    public String getId() {
-        return id;
-    }
-
     public String getText() {
         return text;
     }
 
     public String getRole() {
         return role;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setText(String text) {

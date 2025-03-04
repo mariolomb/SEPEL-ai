@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AclConfiguration {
 
-    static final public String JWTKEY_FILE = "/opt/applicazioni/SEPEL-ai/sessioni/jwtkey.ser";
+    static final public String JWTKEY_FILE = "/opt/applicazioni/SEPEL-www/jwtkey.json";
 
     @Bean
     public Realm realm() {

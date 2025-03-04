@@ -19,13 +19,94 @@ public class Contenuto {
     private String materia;
     private Date data;
     private List<Double> embedding;
+    private String embeddingString;
     private String scores;
     private Double score;
     private String link;
+    private String titolo;
+    private String autore;
+    private String stato;
+    private Date dataIndicizzazione;
+    private Date dataCancellazione;
+    private String esitoIndicizzazione;
+    private Date dataInserimento;
+    private String esito;
 
     public Contenuto() {
     }
 
+    public String getEsito() {
+        return esito;
+    }
+
+    public void setEsito(String esito) {
+        this.esito = esito;
+    }
+    
+    public String getEmbeddingString() {
+        return embeddingString;
+    }
+
+    public void setEmbeddingString(String embeddingString) {
+        this.embeddingString = embeddingString;
+    }
+
+    public String getStato() {
+        return stato;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+
+    public Date getDataIndicizzazione() {
+        return dataIndicizzazione;
+    }
+
+    public void setDataIndicizzazione(Date dataIndicizzazione) {
+        this.dataIndicizzazione = dataIndicizzazione;
+    }
+
+    public Date getDataCancellazione() {
+        return dataCancellazione;
+    }
+
+    public void setDataCancellazione(Date dataCancellazione) {
+        this.dataCancellazione = dataCancellazione;
+    }
+
+    public String getEsitoIndicizzazione() {
+        return esitoIndicizzazione;
+    }
+
+    public void setEsitoIndicizzazione(String esitoIndicizzazione) {
+        this.esitoIndicizzazione = esitoIndicizzazione;
+    }
+
+    public Date getDataInserimento() {
+        return dataInserimento;
+    }
+
+    public void setDataInserimento(Date dataInserimento) {
+        this.dataInserimento = dataInserimento;
+    }
+    
+    public String getAutore() {
+        return autore;
+    }
+
+    public void setAutore(String autore) {
+        this.autore = autore;
+    }
+    
+    public String getTitolo() {
+        return titolo;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+    
     public String getLink() {
         return link;
     }

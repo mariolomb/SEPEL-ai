@@ -18,7 +18,6 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private Indexer indexer;
 
-
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         log.info("application started!");

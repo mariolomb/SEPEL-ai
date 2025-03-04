@@ -3,6 +3,7 @@ package it.sepel.ai.controllers;
 import it.sepel.acl2sb.domain.LoginResult;
 import it.sepel.acl2sb.logic.AclManager;
 import it.sepel.ai.domain.TutorChatSession;
+import it.sepel.ai.logic.Manager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -31,6 +32,9 @@ public class MainController {
     @Autowired
     AclManager aclManager;
 
+    @Autowired
+    Manager manager;
+
     @ExceptionHandler({Exception.class})
     public ModelAndView handleException(Exception ex, Model model, HttpServletRequest req) {
         log.info("Exception [" + ex.getMessage() + "]");
@@ -54,17 +58,18 @@ public class MainController {
         try {
             log.info("Inizio login");
             Subject currentUser = SecurityUtils.getSubject();
-            if(!currentUser.isAuthenticated()) {
+            if (!currentUser.isAuthenticated()) {
                 aclManager.login(ssnId);
-                
-                //genero una chat di messaggi e la associo alla sessione utente
-                Session session = SecurityUtils.getSubject().getSession();
-                TutorChatSession cs = new TutorChatSession();
-                session.setAttribute("chatSession", cs);
-            } 
+            }
+
             model.addAttribute("loggedUser", currentUser.getPrincipal());
             LoginResult rs = (LoginResult) currentUser.getPrincipal();
             model.addAttribute("loggedUser", rs);
+            
+            //genero una chat di messaggi e la associo alla sessione utente
+            Session session = SecurityUtils.getSubject().getSession();
+            TutorChatSession cs = new TutorChatSession(rs.getCodice());
+            session.setAttribute("chatSession", cs);
             model.addAttribute("includePage", "main.ftlh");
             ret = new ModelAndView("index", model);
             log.info("Eseguito login");
@@ -88,10 +93,10 @@ public class MainController {
     @GetMapping(value = "/")
     public ModelAndView home(@ModelAttribute("model") ModelMap model, HttpSession ssn) throws Exception {
         ModelAndView ret;
-        
+
         Subject currentUser = SecurityUtils.getSubject();
         log.info("User is logged = [" + currentUser.isAuthenticated() + "]");
-        
+
         /*
         model.addAttribute("loggedUser", currentUser.getPrincipal());
         if (currentUser.hasRole("QUESITI_OPERATOR")) {

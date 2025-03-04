@@ -7,6 +7,15 @@ public class ContenutoSearch {
     private String id;
     private String embeddingIsEmpty;
     private String errori;
+    private String stato;
+
+    public String getStato() {
+        return stato;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
 
     public String getErrori() {
         return errori;

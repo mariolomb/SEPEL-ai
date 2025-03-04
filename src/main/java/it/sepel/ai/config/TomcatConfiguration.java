@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Profile;
 public class TomcatConfiguration {
     
     @Bean
-    @Profile("prod")
+    @Profile({"prod", "test"})
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainerCustomizer() {
         return factory -> {
-            factory.setPort(8017); // Imposta la porta del server Tomcat su 8004
+            factory.setPort(8018); // Imposta la porta del server Tomcat su 8004
             factory.setProtocol("AJP/1.3"); // Imposta il protocollo AJP
             factory.addConnectorCustomizers(connector -> {
                 AjpNioProtocol protocol = (AjpNioProtocol) connector.getProtocolHandler();
@@ -25,7 +25,7 @@ public class TomcatConfiguration {
     }
     
     @Bean
-    @Profile("test")
+    @Profile("default")
     public ServletWebServerFactory servletContainer() {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
         tomcat.setPort(8080);

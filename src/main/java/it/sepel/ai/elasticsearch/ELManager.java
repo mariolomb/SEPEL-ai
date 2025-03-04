@@ -1,20 +1,20 @@
 package it.sepel.ai.elasticsearch;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.core.DeleteByQueryRequest;
+import co.elastic.clients.elasticsearch.core.DeleteByQueryResponse;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import co.elastic.clients.json.jackson.JacksonJsonpMapper;
-import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.sepel.ai.AppException;
 import it.sepel.ai.domain.Contenuto;
 import it.sepel.ai.domain.ELSearch;
 import it.sepel.ai.logic.Manager;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.http.HttpHost;
-import org.elasticsearch.client.RestClient;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +27,118 @@ public class ELManager {
     private static final String INDEX_NAME = "sepel_ai";
 
     private static final Logger log = LoggerFactory.getLogger(ELManager.class);
-    
+
     @Autowired
     private DocumentRepository documentRepository;
-    
+    private final ElasticsearchClient elasticsearchClient;
+
+    public ELManager(ElasticsearchClient elasticsearchClient) {
+        this.elasticsearchClient = elasticsearchClient;
+    }
+
     public void saveContenuto(Contenuto c) {
         documentRepository.save(c);
     }
 
+    public void deleteContenuto(String id) throws Exception {
+        String queryJson = """
+             {
+               "query": {
+                 "bool": {
+                   "must": [
+                     { "term": { "id": "%s" } }
+                   ]
+                 }
+               }
+             }
+        """;
+        queryJson = queryJson.formatted(id);
+        DeleteByQueryRequest.Builder builder = new DeleteByQueryRequest.Builder();
+        builder.index(INDEX_NAME);
+        builder.withJson(new ByteArrayInputStream(queryJson.getBytes()));
+        DeleteByQueryRequest deleteByQueryRequest = builder.build();
+
+        DeleteByQueryResponse response = elasticsearchClient.deleteByQuery(deleteByQueryRequest);
+        log.info("Eliminati contenuti [" + response.deleted() + "]");
+    }
+
+    public void deleteContenuto(Integer idContenuto, String tipoContenuto) throws Exception {
+        String queryJson = """
+             {
+               "query": {
+                 "bool": {
+                   "must": [
+                     { "term": { "idContenuto": "%d" } },
+                     { "term": { "tipoContenuto": "%s" } }
+                   ]
+                 }
+               }
+             }
+        """;
+        queryJson = queryJson.formatted(idContenuto, tipoContenuto);
+        DeleteByQueryRequest.Builder builder = new DeleteByQueryRequest.Builder();
+        builder.index(INDEX_NAME);
+        builder.withJson(new ByteArrayInputStream(queryJson.getBytes()));
+        DeleteByQueryRequest deleteByQueryRequest = builder.build();
+
+        DeleteByQueryResponse response = elasticsearchClient.deleteByQuery(deleteByQueryRequest);
+        log.info("Eliminati documenti [" + response.deleted() + "]");
+    }
+
+    public Contenuto loadContenutoFromELById(String id) throws Exception {
+        String queryJson = """
+             {
+               "query": {
+                 "term": {
+                   "id": "%s"
+                 }
+               }
+             }
+        """;
+        queryJson = queryJson.formatted(id);
+        SearchRequest searchRequest = new SearchRequest.Builder().withJson(new ByteArrayInputStream(queryJson.getBytes())).build();
+
+        // Esegue la ricerca
+        SearchResponse<Contenuto> response = elasticsearchClient.search(searchRequest, Contenuto.class);
+        List<Hit<Contenuto>> hits = response.hits().hits();
+        log.info("Trovati " + hits.size() + " contenuti:");
+        Contenuto ret = null;
+        if (!hits.isEmpty()) {
+            ret = hits.get(0).source();
+        }
+        return ret;
+    }
+
+    public Contenuto loadContenutoFromELByIdAndTipo(Integer idContenuto, String tipoContenuto) throws Exception {
+        String queryJson = """
+             {
+               "query": {
+                 "bool": {
+                   "must": [
+                     { "term": { "idContenuto": "%d" } },
+                     { "term": { "tipoContenuto": "%s" } }
+                   ]
+                 }
+               }
+             }
+        """;
+        queryJson = queryJson.formatted(idContenuto, tipoContenuto);
+        SearchRequest searchRequest = new SearchRequest.Builder().withJson(new ByteArrayInputStream(queryJson.getBytes())).build();
+
+        // Esegue la ricerca
+        SearchResponse<Contenuto> response = elasticsearchClient.search(searchRequest, Contenuto.class);
+        List<Hit<Contenuto>> hits = response.hits().hits();
+        //log.info("Trovati " + hits.size() + " contenuti:");
+        Contenuto ret = null;
+        if (!hits.isEmpty()) {
+            ret = hits.get(0).source();
+        }
+        return ret;
+    }
+
     public List<Contenuto> searchContenuti(ELSearch st) throws Exception {
-        RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "http")).build();
-        RestClientTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+        //RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "http")).build();
+        //RestClientTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
 
         /*
         MatchQuery matchQuery = MatchQuery.of(m -> m
@@ -59,41 +160,87 @@ public class ELManager {
         log.info("dimensione searchTermEmbedding [" + searchTermEmbedding.size() + "]");
         ObjectMapper objectMapper = new ObjectMapper();
         String searchTermEmbeddingString = objectMapper.writeValueAsString(searchTermEmbedding);
+
+        //se sono state selezionate solo alcune materie
+        boolean hasMatters = (st.getRequestedMatters() != null && !st.getRequestedMatters().isEmpty());
+        if (!hasMatters) {
+            throw new AppException("Selezionare almeno una materia");
+        }
+        String filterQuery = "";
+        if (hasMatters) {
+            String mattersJsonArray = st.getRequestedMatters().stream()
+                    .map(m -> "\"" + m + "\"") // Aggiunge virgolette a ogni elemento
+                    .collect(Collectors.joining(", ", "[", "]")); // Formatta come array JSON
+
+            filterQuery = """
+            "filter": {
+                "terms": {
+                    "materia": %s
+                }
+            },
+        """.formatted(mattersJsonArray);
+        }
         
+ /* versine senza boost sulla data
         String queryJson = """
-            {
+    {
+      "size": 10,
+      "query": {
+        "script_score": {
+          "query": {
+            "match_all": {}
+          },
+          "script": {
+            "source": "cosineSimilarity(params.query_embedding, 'embedding') + 1.0",
+            "params": {
+              "query_embedding": """ + searchTermEmbeddingString + """
+            }
+          }
+        }
+      }
+    }
+""";
+         */
+        String queryJson = """
+    {
+      "size": 10,
+      "query": {
+        "function_score": {
+          "query": {
+            "script_score": {
               "query": {
-                "bool": {
-                  "should": [
-                       {
-                      "match": {
-                         "testo": "%s"
-                      }
-                    },
-                    {
-                      "script_score": {
-                        "query": {
-                          "match_all": {}
-                        },
-                        "script": {
-                          "source": "cosineSimilarity(params.query_embedding, 'embedding')+ 1.0",
-                          "params": {
-                            "query_embedding": """ + searchTermEmbeddingString + """
-                          }
-                        }
-                      }
-                    }
-                  ],
-                  "minimum_should_match": 1
+                "match_all": {}
+              },
+              "script": {
+                "source": "cosineSimilarity(params.query_embedding, 'embedding') + 1.0",
+                "params": {
+                  "query_embedding": """ + searchTermEmbeddingString + """
                 }
               }
             }
-        """;
-        queryJson = queryJson.formatted(st.getSearchTerm());
-        //log.info("json = [" + queryJson + "]");
-        
+          },
+          "functions": [
+            {
+              "gauss": {
+                "data": {
+                  "origin": "now",
+                  "scale": "7300d",
+                  "offset": "0d",
+                  "decay": 0.95
+                }
+              },
+              "weight": 0.025
+            }
+          ],
+          "score_mode": "multiply",
+          "boost_mode": "sum"
+        }
+      }
+    }
+""";
+
+        queryJson = queryJson.formatted(st.getSearchTerm(), st.getSearchTerm()); // ✅ Aggiunta formattazione per "titolo"
         SearchRequest searchRequest = new SearchRequest.Builder().withJson(new ByteArrayInputStream(queryJson.getBytes())).build();
-        ElasticsearchClient elasticsearchClient = new ElasticsearchClient(transport);
 
         // Esegue la ricerca
         SearchResponse<Contenuto> response = elasticsearchClient.search(searchRequest, Contenuto.class);
@@ -109,14 +256,15 @@ public class ELManager {
             c.setLink(Manager.linkAllegatoMap.get(c.getTipoContenuto()) + c.getIdContenuto());
             c.setTipoContenuto(Manager.typeAllegatoMap.get(c.getTipoContenuto()));
             ret.add(c);
-            log.info("Contenuto trovato: Tipo = " + c.getTipoContenuto() + ", ID = " + c.getIdContenuto() + ", Score = " + score);
+            log.info("Contenuto trovato: Tipo = " + c.getTipoContenuto() + ", ID = " + c.getIdContenuto() + 
+                    ", Score = " + score + " Data [" + c.getData() + "] Titolo [" + c.getTitolo() + "]");
         }
         return ret;
     }
 }
 
 
-  /*
+/*
         SearchRequest searchRequest = SearchRequest.of(s -> s
             .index(INDEX_NAME)
             .query(q -> q.match(matchQuery))
@@ -128,8 +276,7 @@ public class ELManager {
             ).size(5)
             .requestCache(false)
         );
-         */
-
+ */
 //CODICE DA TESTARE COMUNQUE
 
 /*
@@ -162,4 +309,4 @@ SearchRequest searchRequest = SearchRequest.of(s -> s
             .query(q -> q.bool(boolQuery)) // Combinazione della query booleana
 );
 
-*/
+ */
