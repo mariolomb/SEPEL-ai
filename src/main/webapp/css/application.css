@@ -455,3 +455,12 @@ footer {
     margin-bottom: 0px;
     line-height: 1;
 }
+
+.clausola-container {
+    background-color: #f0f0f0; /* Grigio chiaro */
+    font-size: 0.8em; /* Più piccolo del testo normale */
+    border-radius: 8px; /* Bordi arrotondati */
+    padding: 10px; /* Spazio interno */
+    margin: 10px 0; /* Spazio esterno */
+    color: #333; /* Testo scuro per contrasto */
+}

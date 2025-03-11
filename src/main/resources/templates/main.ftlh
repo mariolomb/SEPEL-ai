@@ -32,6 +32,7 @@
             Application.typeMessage(msg.text, $messageDiv).then(() => {
                 addAttachments($messageDiv, msg.attachments);
                 addRatingStars($messageDiv, msg.id);
+                addClausola($messageDiv, msg.id);
             });
         } else {
             $messageDiv.text(msg.text);
@@ -48,10 +49,13 @@
             $(this).parent().find(".star").each(function() {
                 $(this).toggleClass("selected", $(this).data("value") <= ratingValue);
             });
-            //invia valutazione
-            console.log(id)
             Application.updateRating(id, ratingValue);
         });
+    }
+    
+    function addClausola($messageDiv, id) {
+        const clausolaHtml = '<div class="clausola-container">Le risposte fornite da Tutor-AI sono frutto di un\'elaborazione basata su materiali di proprietà intellettuale di Sepel editrice. E\' severamente vietata la riproduzione o il riutilizzo, anche parziale, senza espressa autorizzazione delel risposte cosi ottenut. Tale divieto richiama e fa salvi, in ogni caso, tutti i diritti e le azioni di tutela relativi alla proprietà letteraria e scientifica, ai marchi, ai brevetti, nonché ai diritti di esclusività di pubblicazione.</div>'
+        $messageDiv.append(clausolaHtml);
     }
 
     function addAttachments($messageDiv, documents) {
@@ -105,27 +109,39 @@
                         });
                 // Creazione dell'icona accanto all'elemento della cronologia
                 const $icon = $("<i>").addClass("fas fa-history cronologia-icon"); // Usa FontAwesome per l'icona
+                
+                const maxLength = 50;
+                const truncatedText = (formattedDate + ' ' + item.prompt).length > maxLength 
+                    ? (formattedDate + ' ' + item.prompt).substring(0, maxLength) + "..." 
+                    : (formattedDate + ' ' + item.prompt);
 
                 // Creazione del testo con il prompt
                 const $text = $("<span>")
                         .addClass("cronologia-text")
-                        .text(formattedDate + ' ' + item.prompt);
+                        .text(formattedDate + ' ' + truncatedText);
 
                 // Aggiunge l'icona e il testo all'elemento della cronologia
                 $item.append($icon, $text);
-
                 $cronologia.append($item);
             });
         });
     }
-
-    function sendCronologia(prompt) {
+    
+    function resetChat() {
+       return Application.resetChat().then(response => {
+            showMessages(false);
+       });
+    }
+    
+    async function sendCronologia(prompt) {
+        await Application.resetChat();
+        await showMessages(false);
         $("#user-text").val(prompt);
         sendMessage();
     }
 
     function showMessages(isRequest) {
-        Application.getChatSession().then(response => {
+        return Application.getChatSession().then(response => {
             const chatSession = response.result;
             const $chatMessages = $("#chat-messages");
             $chatMessages.html('');
@@ -182,12 +198,6 @@
 
         $("#user-text").val("");
         //$("#chat-messages").scrollTop(chatMessages[0].scrollHeight);
-    }
-
-    function resetChat() {
-        Application.resetChat().then(response => {
-            showMessages(false);
-        });
     }
 
     function createFilterMenu() {
