@@ -79,7 +79,14 @@
                 $documentList.append($documentItem);
             });
             $messageDiv.append($documentList);
+            
+            $(".tooltip-item").tooltip({
+                trigger: "hover",
+                delay: { show: 0, hide: 0 },
+                animation: true
+            });
 
+            /* da eliminare
             $(".tooltip-item").tooltip({
                 show: {effect: "fadeIn", delay: 0}, // Il tooltip appare immediatamente
                 hide: {effect: "fadeOut", delay: 0} // Nessun ritardo nella chiusura
@@ -88,6 +95,7 @@
             }).on("mouseleave", function () {
                 $(this).tooltip("close"); // Forza la chiusura immediata del tooltip
             });
+            */
         }
     }
 
