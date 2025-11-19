@@ -13,6 +13,7 @@ import it.sepel.ai.domain.ELSearch;
 import it.sepel.ai.logic.Manager;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -137,71 +138,26 @@ public class ELManager {
     }
 
     public List<Contenuto> searchContenuti(ELSearch st) throws Exception {
-        //RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "http")).build();
-        //RestClientTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
-
-        /*
-        MatchQuery matchQuery = MatchQuery.of(m -> m
-                .field(SEARCH_FILED)
-                .query(st.getSearchTerm())
-        );
-      
-        BoolQuery boolQuery = BoolQuery.of(b -> b
-                .should(Query.of(q -> q.match(matchQuery)))
-                .minimumShouldMatch("1") // Almeno 1 condizione deve essere soddisfatta
-        );
-
-        SearchRequest searchRequest = SearchRequest.of(s -> s
-                .index("sepel_ai") // Nome dell'indice
-                .query(q -> q.bool(boolQuery))
-        );
-         */
+        // 1) Input & serializzazioni
         List<Double> searchTermEmbedding = st.getSearchTermEmbedding();
-        log.info("dimensione searchTermEmbedding [" + searchTermEmbedding.size() + "]");
-        ObjectMapper objectMapper = new ObjectMapper();
-        String searchTermEmbeddingString = objectMapper.writeValueAsString(searchTermEmbedding);
+        log.info("dimensione searchTermEmbedding [" + (searchTermEmbedding == null ? 0 : searchTermEmbedding.size()) + "]");
 
-        //se sono state selezionate solo alcune materie
-        boolean hasMatters = (st.getRequestedMatters() != null && !st.getRequestedMatters().isEmpty());
-        if (!hasMatters) {
+        if (st.getRequestedMatters() == null || st.getRequestedMatters().isEmpty()) {
             throw new AppException("Selezionare almeno una materia");
         }
-        String filterQuery = "";
-        if (hasMatters) {
-            String mattersJsonArray = st.getRequestedMatters().stream()
-                    .map(m -> "\"" + m + "\"") // Aggiunge virgolette a ogni elemento
-                    .collect(Collectors.joining(", ", "[", "]")); // Formatta come array JSON
 
-            filterQuery = """
-            "filter": {
-                "terms": {
-                    "materia": %s
-                }
-            },
-        """.formatted(mattersJsonArray);
-        }
-        
- /* versine senza boost sulla data
-        String queryJson = """
-    {
-      "size": 10,
-      "query": {
-        "script_score": {
-          "query": {
-            "match_all": {}
-          },
-          "script": {
-            "source": "cosineSimilarity(params.query_embedding, 'embedding') + 1.0",
-            "params": {
-              "query_embedding": """ + searchTermEmbeddingString + """
-            }
-          }
-        }
-      }
-    }
-""";
-         */
-        String queryJson = """
+        ObjectMapper objectMapper = new ObjectMapper();
+        String searchTermEmbeddingString = objectMapper.writeValueAsString(searchTermEmbedding);
+        String domandaJson = objectMapper.writeValueAsString(st.getSearchTerm());
+
+        String mattersJsonArray = st.getRequestedMatters().stream()
+                .map(m -> "\"" + m + "\"")
+                .collect(Collectors.joining(", ", "[", "]"));
+
+        String filterPart = "\"filter\": [ { \"terms\": { \"materia\": " + mattersJsonArray + " } } ],";
+
+        // 2) Query: testo obbligatorio (match OR 60% + match_phrase) + vettore; recency con gauss; rescore forte sul match_phrase
+        String queryJson = String.format("""
     {
       "size": 10,
       "query": {
@@ -209,12 +165,43 @@ public class ELManager {
           "query": {
             "script_score": {
               "query": {
-                "match_all": {}
+                "bool": {
+                  %s
+                  "must": [
+                    {
+                      "bool": {
+                        "should": [
+                          {
+                            "match": {
+                              "testo": {
+                                "query": %s,
+                                "operator": "OR",
+                                "minimum_should_match": "60%%"
+                              }
+                            }
+                          },
+                          {
+                            "match_phrase": {
+                              "testo": {
+                                "query": %s,
+                                "slop": 3,
+                                "boost": 2.0
+                              }
+                            }
+                          }
+                        ],
+                        "minimum_should_match": 1
+                      }
+                    }
+                  ]
+                }
               },
               "script": {
-                "source": "cosineSimilarity(params.query_embedding, 'embedding') + 1.0",
+                "source": "(cosineSimilarity(params.q, 'embedding') + 1.0) * params.alpha + _score * params.beta",
                 "params": {
-                  "query_embedding": """ + searchTermEmbeddingString + """
+                  "q": %s,
+                  "alpha": 0.5,
+                  "beta": 2.0
                 }
               }
             }
@@ -222,32 +209,43 @@ public class ELManager {
           "functions": [
             {
               "gauss": {
-                "data": {
-                  "origin": "now",
-                  "scale": "7300d",
-                  "offset": "0d",
-                  "decay": 0.95
-                }
+                "data": { "origin": "now", "scale": "7300d", "offset": "0d", "decay": 0.95 }
               },
-              "weight": 0.025
+              "weight": 1.0
             }
           ],
-          "score_mode": "multiply",
-          "boost_mode": "sum"
+          "score_mode": "sum",
+          "boost_mode": "multiply"
+        }
+      },
+      "rescore": {
+        "window_size": 200,
+        "query": {
+          "rescore_query": {
+            "match_phrase": {
+              "testo": {
+                "query": %s,
+                "slop": 2
+              }
+            }
+          },
+          "query_weight": 1.0,
+          "rescore_query_weight": 3.0
         }
       }
     }
-""";
+    """, filterPart, domandaJson, domandaJson, searchTermEmbeddingString, domandaJson);
 
-        queryJson = queryJson.formatted(st.getSearchTerm(), st.getSearchTerm()); // ✅ Aggiunta formattazione per "titolo"
-        SearchRequest searchRequest = new SearchRequest.Builder().withJson(new ByteArrayInputStream(queryJson.getBytes())).build();
+        SearchRequest searchRequest = new SearchRequest.Builder()
+                .index("sepel_ai")
+                .withJson(new ByteArrayInputStream(queryJson.getBytes(java.nio.charset.StandardCharsets.UTF_8)))
+                .build();
 
-        // Esegue la ricerca
         SearchResponse<Contenuto> response = elasticsearchClient.search(searchRequest, Contenuto.class);
 
-        List<Contenuto> ret = new ArrayList();
+        List<Contenuto> ret = new ArrayList<>();
         List<Hit<Contenuto>> hits = response.hits().hits();
-        log.info("Trovati " + hits.size() + " contenuti:");
+        log.info("Trovati [" + hits.size() + "] contenuti su EL");
         for (Hit<Contenuto> hit : hits) {
             double score = hit.score() != null ? hit.score() : 0.0;
             Contenuto c = hit.source();
@@ -256,11 +254,12 @@ public class ELManager {
             c.setLink(Manager.linkAllegatoMap.get(c.getTipoContenuto()) + c.getIdContenuto());
             c.setTipoContenuto(Manager.typeAllegatoMap.get(c.getTipoContenuto()));
             ret.add(c);
-            log.info("Contenuto trovato: Tipo = " + c.getTipoContenuto() + ", ID = " + c.getIdContenuto() + 
-                    ", Score = " + score + " Data [" + c.getData() + "] Titolo [" + c.getTitolo() + "]");
+            log.info("Contenuto trovato: Tipo = " + c.getTipoContenuto() + ", ID = " + c.getIdContenuto()
+                    + ", Score = " + score + " Data [" + c.getData() + "] Titolo [" + c.getTitolo() + "]");
         }
         return ret;
     }
+
 }
 
 

@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
+import retrofit2.HttpException;
 
 @Service
 @DependsOn("loadAppConfig")
@@ -34,7 +35,10 @@ public class OpenAIManager {
     private final static String OPEN_AI_MODEL_4O = "gpt-4o";
     private final static String OPEN_AI_MODEL_4O_MINI = "gpt-4o-mini";
 
-    private final static String OPEN_AI_EMBEDDING_MODEL = "text-embedding-ada-002";
+    //obsoleto da eliminare
+    //private final static String OPEN_AI_EMBEDDING_MODEL = "text-embedding-ada-002";
+    //aggiornato a
+    private static final String OPEN_AI_EMBEDDING_MODEL = "text-embedding-3-small";
 
     private static final Logger log = LoggerFactory.getLogger(OpenAIManager.class);
 
@@ -162,10 +166,18 @@ public class OpenAIManager {
                 .model(OPEN_AI_EMBEDDING_MODEL)
                 .input(List.of(text))
                 .build();
-        List<Embedding> embeddings = getOpenAiService().createEmbeddings(request).getData();
-        List<Double> embeddingVector = embeddings.get(0).getEmbedding();
-        log.info("Embedding generato by openAI");
-        return embeddingVector;
+        try {
+            List<Embedding> embeddings = getOpenAiService().createEmbeddings(request).getData();
+            List<Double> embeddingVector  = embeddings.get(0).getEmbedding();
+            log.info("Embedding generato by openAI");
+            return embeddingVector;
+        } catch (HttpException e) {
+            String errorBody = e.response() != null && e.response().errorBody() != null
+                    ? e.response().errorBody().string()
+                    : "no error body";
+            log.error("OpenAI 400 error: {}", errorBody);
+            throw new RuntimeException("Errore OpenAI: " + errorBody, e);
+        }
     }
 
     public Boolean isClarificationOrNewQuestion(TutorChatMessage lastUserMessage, TutorChatMessage lastSystemMessage, TutorChatMessage newUserMessage) {

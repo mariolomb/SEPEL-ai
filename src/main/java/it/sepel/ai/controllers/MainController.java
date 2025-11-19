@@ -89,6 +89,23 @@ public class MainController {
         return new ModelAndView("redirect:" + "https://www.sepel.it/area-riservata");
     }
 
+    /*
+    @RequiresAuthentication
+    @GetMapping(value = "/")
+    public ModelAndView home(@ModelAttribute("model") ModelMap model, HttpSession ssn) throws Exception {
+        ModelAndView ret;
+        Subject currentUser = SecurityUtils.getSubject();
+        model.addAttribute("loggedUser", currentUser.getPrincipal());
+        if (currentUser.hasRole("SCHEDE_PRATICHE_USER")) {
+            model.addAttribute("includePage", "main.ftlh");
+            ret = new ModelAndView("index", model);
+        } else {
+            ret = new ModelAndView("redirect:" + "https://www.sepel.it/area-riservata");
+        }
+        return ret;
+    }
+    */
+
     @RequiresAuthentication
     @GetMapping(value = "/")
     public ModelAndView home(@ModelAttribute("model") ModelMap model, HttpSession ssn) throws Exception {
@@ -96,18 +113,12 @@ public class MainController {
 
         Subject currentUser = SecurityUtils.getSubject();
         log.info("User is logged = [" + currentUser.isAuthenticated() + "]");
-
-        /*
-        model.addAttribute("loggedUser", currentUser.getPrincipal());
-        if (currentUser.hasRole("QUESITI_OPERATOR")) {
+        if(!currentUser.isAuthenticated()) {
+            ret = new ModelAndView("redirect:" + "https://www.sepel.it/area-riservata");
+        } else {
             model.addAttribute("includePage", "main.ftlh");
             ret = new ModelAndView("index", model);
-        } else {
-            ret = new ModelAndView("redirect:" + "https://www.sepel.it/area-riservata");
         }
-         */
-        model.addAttribute("includePage", "main.ftlh");
-        ret = new ModelAndView("index", model);
         return ret;
     }
 }
