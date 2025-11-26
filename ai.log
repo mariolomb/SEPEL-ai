@@ -1,0 +1,195 @@
+09:41:39 INFO  [restartedMain]: Starting Application using Java 17.0.2 with PID 40400 (/opt/applicazioni/SEPEL/SEPEL-ai/target/classes started by mario in /opt/applicazioni/SEPEL/SEPEL-ai) 
+09:41:39 INFO  [restartedMain]: No active profile set, falling back to 1 default profile: "default" 
+09:41:39 INFO  [restartedMain]: Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+09:41:39 INFO  [restartedMain]: For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+09:41:39 INFO  [restartedMain]: Bootstrapping Spring Data Elasticsearch repositories in DEFAULT mode. 
+09:41:39 INFO  [restartedMain]: Finished Spring Data repository scanning in 28 ms. Found 1 Elasticsearch repository interface. 
+09:41:40 WARN  [restartedMain]: Bean 'org.apache.shiro.spring.boot.autoconfigure.ShiroBeanAutoConfiguration' of type [org.apache.shiro.spring.boot.autoconfigure.ShiroBeanAutoConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lifecycleBeanPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead. 
+09:41:40 WARN  [restartedMain]: Bean 'org.apache.shiro.spring.boot.autoconfigure.ShiroAnnotationProcessorAutoConfiguration' of type [org.apache.shiro.spring.boot.autoconfigure.ShiroAnnotationProcessorAutoConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [defaultAdvisorAutoProxyCreator] is declared through a non-static factory method on that class; consider declaring it as static instead. 
+09:41:40 WARN  [restartedMain]: Bean 'eventBus' of type [org.apache.shiro.event.support.DefaultEventBus] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'org.apache.shiro.spring.config.web.autoconfigure.ShiroWebAutoConfiguration' of type [org.apache.shiro.spring.config.web.autoconfigure.ShiroWebAutoConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'aclConfiguration' of type [it.sepel.ai.config.AclConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'mybatis-org.mybatis.spring.boot.autoconfigure.MybatisProperties' of type [org.mybatis.spring.boot.autoconfigure.MybatisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration' of type [org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration$PooledDataSourceConfiguration' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration$PooledDataSourceConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'jdbcConnectionDetails' of type [org.springframework.boot.autoconfigure.jdbc.PropertiesJdbcConnectionDetails] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'org.springframework.boot.autoconfigure.sql.init.DataSourceInitializationConfiguration' of type [org.springframework.boot.autoconfigure.sql.init.DataSourceInitializationConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'spring.sql.init-org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties' of type [org.springframework.boot.autoconfigure.sql.init.SqlInitializationProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'dataSourceScriptDatabaseInitializer' of type [org.springframework.boot.autoconfigure.sql.init.SqlDataSourceScriptDatabaseInitializer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'aclMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'aclMapper' of type [jdk.proxy3.$Proxy74] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'loginResultLoader' of type [it.sepel.acl2sb.logic.SimpleLoginResultLoader] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 DEBUG [restartedMain]: Initializing bean [realm]... 
+09:41:40 DEBUG [restartedMain]: No authorizationCache instance set.  Checking for a cacheManager... 
+09:41:40 DEBUG [restartedMain]: No cache or cacheManager properties have been set.  Authorization cache cannot be obtained. 
+09:41:40 WARN  [restartedMain]: Bean 'realm' of type [it.sepel.acl2sb.logic.AclRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'sessionStorageEvaluator' of type [org.apache.shiro.web.mgt.DefaultWebSessionStorageEvaluator] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'subjectDAO' of type [org.apache.shiro.mgt.DefaultSubjectDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'subjectFactory' of type [org.apache.shiro.web.mgt.DefaultWebSubjectFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'rememberMeCookieTemplate' of type [org.apache.shiro.web.servlet.SimpleCookie] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'rememberMeManager' of type [org.apache.shiro.web.mgt.CookieRememberMeManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'authenticationStrategy' of type [org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'authenticator' of type [org.apache.shiro.authc.pam.ModularRealmAuthenticator] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'authorizer' of type [org.apache.shiro.authz.ModularRealmAuthorizer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.ServletContainerSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [shiroEventBusAwareBeanPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'shiroFilterChainDefinition' of type [org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'requestContextFilter' of type [org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration' of type [org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'formContentFilter' of type [org.springframework.boot.web.servlet.filter.OrderedFormContentFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'server-org.springframework.boot.autoconfigure.web.ServerProperties' of type [org.springframework.boot.autoconfigure.web.ServerProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration' of type [org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'characterEncodingFilter' of type [org.springframework.boot.web.servlet.filter.OrderedCharacterEncodingFilter] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'org.apache.shiro.spring.config.web.autoconfigure.ShiroWebFilterConfiguration' of type [org.apache.shiro.spring.config.web.autoconfigure.ShiroWebFilterConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 WARN  [restartedMain]: Bean 'globalFilters' of type [java.util.Collections$SingletonList] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor []? Check the corresponding BeanPostProcessor declaration and its dependencies. 
+09:41:40 INFO  [restartedMain]: Tomcat initialized with port 8080 (http) 
+09:41:40 INFO  [restartedMain]: Starting service [Tomcat] 
+09:41:40 INFO  [restartedMain]: Starting Servlet engine: [Apache Tomcat/10.1.30] 
+09:41:40 INFO  [restartedMain]: Initializing Spring embedded WebApplicationContext 
+09:41:40 INFO  [restartedMain]: Root WebApplicationContext: initialization completed in 1392 ms 
+09:41:40 DEBUG [restartedMain]: Creating Shiro Filter instance. 
+09:41:40 DEBUG [restartedMain]: Creating chain [/**] with global filters [invalidRequest] and from String definition [anon] 
+09:41:40 DEBUG [restartedMain]: Attempting to apply path [/**] to filter [invalidRequest] with config [null] 
+09:41:40 DEBUG [restartedMain]: Attempting to apply path [/**] to filter [anon] with config [null] 
+09:41:41 INFO  [restartedMain]: LiveReload server is running on port 35729 
+09:41:41 WARN  [restartedMain]: Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'ajaxController': Unsatisfied dependency expressed through field 'manager': Error creating bean with name 'manager': Unsatisfied dependency expressed through field 'elManager': Error creating bean with name 'ELManager': Unsatisfied dependency expressed through field 'documentRepository': Error creating bean with name 'documentRepository' defined in it.sepel.ai.elasticsearch.DocumentRepository defined in @EnableElasticsearchRepositories declared on Application: Failed to instantiate [org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository]: Constructor threw exception 
+09:41:41 DEBUG [restartedMain]: Destroying bean [securityManager]... 
+09:41:41 INFO  [restartedMain]: Stopping service [Tomcat] 
+09:41:41 INFO  [restartedMain]: 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. 
+09:41:41 ERROR [restartedMain]: Application run failed 
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'ajaxController': Unsatisfied dependency expressed through field 'manager': Error creating bean with name 'manager': Unsatisfied dependency expressed through field 'elManager': Error creating bean with name 'ELManager': Unsatisfied dependency expressed through field 'documentRepository': Error creating bean with name 'documentRepository' defined in it.sepel.ai.elasticsearch.DocumentRepository defined in @EnableElasticsearchRepositories declared on Application: Failed to instantiate [org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository]: Constructor threw exception
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:788)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at it.sepel.ai.Application.main(Application.java:17)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'manager': Unsatisfied dependency expressed through field 'elManager': Error creating bean with name 'ELManager': Unsatisfied dependency expressed through field 'documentRepository': Error creating bean with name 'documentRepository' defined in it.sepel.ai.elasticsearch.DocumentRepository defined in @EnableElasticsearchRepositories declared on Application: Failed to instantiate [org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository]: Constructor threw exception
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:788)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+	... 25 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'ELManager': Unsatisfied dependency expressed through field 'documentRepository': Error creating bean with name 'documentRepository' defined in it.sepel.ai.elasticsearch.DocumentRepository defined in @EnableElasticsearchRepositories declared on Application: Failed to instantiate [org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository]: Constructor threw exception
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:788)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+	... 39 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'documentRepository' defined in it.sepel.ai.elasticsearch.DocumentRepository defined in @EnableElasticsearchRepositories declared on Application: Failed to instantiate [org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository]: Constructor threw exception
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+	... 53 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:221)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.lambda$instantiateClass$5(RepositoryFactorySupport.java:571)
+	at java.base/java.util.Optional.map(Optional.java:260)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.instantiateClass(RepositoryFactorySupport.java:571)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getTargetRepositoryViaReflection(RepositoryFactorySupport.java:536)
+	at org.springframework.data.elasticsearch.repository.support.ElasticsearchRepositoryFactory.getTargetRepository(ElasticsearchRepositoryFactory.java:80)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:317)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:286)
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135)
+	at org.springframework.data.util.Lazy.get(Lazy.java:113)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:292)
+	at org.springframework.data.elasticsearch.repository.support.ElasticsearchRepositoryFactoryBean.afterPropertiesSet(ElasticsearchRepositoryFactoryBean.java:69)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802)
+	... 63 common frames omitted
+Caused by: org.springframework.dao.DataAccessResourceFailureException: Connessione rifiutata
+	at org.springframework.data.elasticsearch.client.elc.ElasticsearchExceptionTranslator.translateExceptionIfPossible(ElasticsearchExceptionTranslator.java:111)
+	at org.springframework.data.elasticsearch.client.elc.ElasticsearchExceptionTranslator.translateException(ElasticsearchExceptionTranslator.java:65)
+	at org.springframework.data.elasticsearch.client.elc.ChildTemplate.execute(ChildTemplate.java:73)
+	at org.springframework.data.elasticsearch.client.elc.IndicesTemplate.doExists(IndicesTemplate.java:177)
+	at org.springframework.data.elasticsearch.client.elc.IndicesTemplate.exists(IndicesTemplate.java:169)
+	at org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository.createIndexAndMappingIfNeeded(SimpleElasticsearchRepository.java:93)
+	at org.springframework.data.elasticsearch.repository.support.SimpleElasticsearchRepository.<init>(SimpleElasticsearchRepository.java:87)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:208)
+	... 76 common frames omitted
+Caused by: java.lang.RuntimeException: Connessione rifiutata
+	at org.springframework.data.elasticsearch.client.elc.ElasticsearchExceptionTranslator.translateException(ElasticsearchExceptionTranslator.java:64)
+	... 87 common frames omitted
+Caused by: java.net.ConnectException: Connessione rifiutata
+	at org.elasticsearch.client.RestClient.extractAndWrapCause(RestClient.java:934)
+	at org.elasticsearch.client.RestClient.performRequest(RestClient.java:304)
+	at org.elasticsearch.client.RestClient.performRequest(RestClient.java:292)
+	at co.elastic.clients.transport.rest_client.RestClientHttpClient.performRequest(RestClientHttpClient.java:91)
+	at co.elastic.clients.transport.ElasticsearchTransportBase.performRequest(ElasticsearchTransportBase.java:144)
+	at co.elastic.clients.elasticsearch.indices.ElasticsearchIndicesClient.exists(ElasticsearchIndicesClient.java:666)
+	at org.springframework.data.elasticsearch.client.elc.IndicesTemplate.lambda$doExists$2(IndicesTemplate.java:177)
+	at org.springframework.data.elasticsearch.client.elc.ChildTemplate.execute(ChildTemplate.java:71)
+	... 86 common frames omitted
+Caused by: java.net.ConnectException: Connessione rifiutata
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:946)
+	at org.apache.http.impl.nio.reactor.DefaultConnectingIOReactor.processEvent(DefaultConnectingIOReactor.java:174)
+	at org.apache.http.impl.nio.reactor.DefaultConnectingIOReactor.processEvents(DefaultConnectingIOReactor.java:148)
+	at org.apache.http.impl.nio.reactor.AbstractMultiworkerIOReactor.execute(AbstractMultiworkerIOReactor.java:351)
+	at org.apache.http.impl.nio.conn.PoolingNHttpClientConnectionManager.execute(PoolingNHttpClientConnectionManager.java:221)
+	at org.apache.http.impl.nio.client.CloseableHttpAsyncClientBase$1.run(CloseableHttpAsyncClientBase.java:64)
+	at java.base/java.lang.Thread.run(Thread.java:833)
