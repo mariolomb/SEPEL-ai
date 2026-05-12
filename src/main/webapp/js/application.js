@@ -146,6 +146,10 @@ const Application = {
     getCronologia() {
         return this.postObjectAsync(null, 'getCronologia');
     },
+    
+    deleteCronologia() {
+        return this.postObjectAsync(null, 'deleteCronologia');
+    },
 
     resetChat() {
         return this.postObjectAsync(null, 'resetChat');

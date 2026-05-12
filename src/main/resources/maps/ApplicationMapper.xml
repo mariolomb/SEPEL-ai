@@ -68,9 +68,16 @@
          from 
             audit a
          where
-            a.codice = #{codiceAbbonato}
+            a.codice = #{codiceAbbonato} and deleted = 'NO'
         order by a.data desc;
     </select>
+    
+    <update id="deleteCronologia">
+         update audit a
+            set a.deleted = 'SI'
+         where
+            a.codice = #{codiceAbbonato}
+    </update>
     
     <!--
     <select id="searchContenuti" resultType="it.sepel.ai.domain.Contenuto">
@@ -140,7 +147,8 @@
                 completion_tokens,
                 total_tokens,
                 chiarimento,
-                session_id
+                session_id,
+                deleted
             ) values (
                 #{id},
                 #{prompt},
@@ -151,7 +159,8 @@
                 #{completionTokens},
                 #{totalTokens},
                 #{chiarimento},
-                #{sessionId}
+                #{sessionId},
+                'NO'
             )
     </insert>
     

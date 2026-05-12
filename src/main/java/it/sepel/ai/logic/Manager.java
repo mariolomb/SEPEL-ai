@@ -190,6 +190,10 @@ public class Manager {
     public List<ItemCronologia> loadCronologia(String codiceAbbonato) {
         return mapper.loadCronologia(codiceAbbonato);
     }
+    
+    public void deleteCronologia(String codiceAbbonato) {
+        mapper.deleteCronologia(codiceAbbonato);
+    }
 
     public List<String> loadMaterie() {
         return mapper.loadMaterie();

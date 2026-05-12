@@ -234,7 +234,7 @@ body, html {
 #cronologia {
     max-height: calc(100vh - 100px);
     overflow-y: auto; /* Abilita lo scrolling verticale */
-    border: 1px solid #ccc; /* Bordo leggero per evidenziare l'area */
+    /*border: 1px solid #ccc;*/ /* Bordo leggero per evidenziare l'area */
     padding: 10px;
 }
 

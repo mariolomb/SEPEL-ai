@@ -192,6 +192,21 @@ public class AjaxController {
         return new ResponseEntity<>(resp, resp.getHttpStatus());
     }
     
+    @PostMapping(value = "deleteCronologia")
+    public ResponseEntity<Object> deleteCronologia() {
+        Response resp;
+        try {
+            Subject currentUser = SecurityUtils.getSubject();
+            LoginResult rs = (LoginResult) currentUser.getPrincipal();
+            manager.deleteCronologia(rs.getCodice());
+            resp = new Response("OK");
+        } catch (Exception e) {
+            resp = new Response(e);
+            log.error("Error", e);
+        }
+        return new ResponseEntity<>(resp, resp.getHttpStatus());
+    }
+    
     @PostMapping(value = "loadMaterie")
     public ResponseEntity<Object> loadMaterie() {
         Response resp;

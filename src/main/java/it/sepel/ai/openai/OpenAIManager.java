@@ -168,7 +168,7 @@ public class OpenAIManager {
                 .build();
         try {
             List<Embedding> embeddings = getOpenAiService().createEmbeddings(request).getData();
-            List<Double> embeddingVector  = embeddings.get(0).getEmbedding();
+            List<Double> embeddingVector = embeddings.get(0).getEmbedding();
             log.info("Embedding generato by openAI");
             return embeddingVector;
         } catch (HttpException e) {
@@ -180,6 +180,46 @@ public class OpenAIManager {
         }
     }
 
+    public Boolean isClarificationOrNewQuestion(TutorChatMessage lastUserMessage, TutorChatMessage lastSystemMessage, TutorChatMessage newUserMessage) {
+        Boolean ret = false;
+        if (null != lastUserMessage && null != newUserMessage) {
+            String previousQuestion = lastUserMessage.getText() == null
+                    ? ""
+                    : lastUserMessage.getText();
+            String previousAnswer = lastSystemMessage != null
+                    && lastSystemMessage.getText() != null
+                    ? lastSystemMessage.getText()
+                    : "";
+            String newQuestion = newUserMessage.getText() == null
+                    ? ""
+                    : newUserMessage.getText();
+            ChatCompletionRequest request = ChatCompletionRequest.builder()
+                    .model(OPEN_AI_MODEL_4O_MINI)
+                    .messages(List.of(
+                            new ChatMessage("system",
+                                    "Sei un assistente che deve capire se l'ultima domanda dell'utente è un chiarimento "
+                                    + "rispetto alla domanda precedente oppure una nuova domanda. "
+                                    + "Rispondi solo con chiarimento o nuova domanda"),
+                            new ChatMessage("user",
+                                    "Questa è la domanda precedente: " + previousQuestion),
+                            new ChatMessage("user",
+                                    "Questa è la risposta a quella domanda: " + previousAnswer),
+                            new ChatMessage("user",
+                                    "Questa è la nuova domanda: " + newQuestion)
+                    ))
+                    .maxTokens(10)
+                    .temperature(0.0)
+                    .build();
+            ChatCompletionResult result = getOpenAiService().createChatCompletion(request);
+            String assistantResponse = result.getChoices().get(0).getMessage().getContent();
+            log.info("è un chiarimento = [{}]", assistantResponse);
+            String normalized = assistantResponse == null ? "" : assistantResponse.trim().toLowerCase();
+            ret = normalized.contains("chiarimento");
+        }
+        return ret;
+    }
+
+    /*
     public Boolean isClarificationOrNewQuestion(TutorChatMessage lastUserMessage, TutorChatMessage lastSystemMessage, TutorChatMessage newUserMessage) {
         Boolean ret = false;
         if (null != lastUserMessage) {
@@ -204,6 +244,7 @@ public class OpenAIManager {
         }
         return ret;
     }
+     */
 
     //metodo che torna il numero di token associati ad un testo usando un
     //programma python esterno

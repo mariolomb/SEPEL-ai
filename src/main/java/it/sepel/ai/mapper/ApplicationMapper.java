@@ -24,4 +24,5 @@ public interface ApplicationMapper {
     List<ItemCronologia> loadCronologia(String codiceAbbonato);
     List<String> loadMaterie();
     void updateRating(Rating r);
+    void deleteCronologia(String codiceAbbonato);
 }

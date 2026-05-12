@@ -7,6 +7,15 @@ public class ItemCronologia {
     private String prompt;
     private Date data;
     private String codiceAbbonato;
+    private String deleted;
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
 
     public String getPrompt() {
         return prompt;

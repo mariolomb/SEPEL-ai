@@ -98,7 +98,15 @@
             */
         }
     }
-
+    
+    function deleteCronologia(id) {
+        Application.showConfirmModal("Confermi la cancellazione della cronologia ?", () => {
+            Application.deleteCronologia().then(response => {
+                showCronologia();
+            });
+        });
+    }
+    
     function showCronologia() {
         Application.getCronologia().then(response => {
             const cronologia = response.result;
@@ -265,6 +273,9 @@
         });
         $("#resetchat-button").on("click", function () {
             resetChat();
+        });
+         $("#deleteCronologia-button").on("click", function () {
+            deleteCronologia();
         });
         showMessages(false);
         showCronologia();
